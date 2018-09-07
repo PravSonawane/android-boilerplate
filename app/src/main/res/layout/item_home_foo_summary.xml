@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+  <data>
+
+    <variable
+        name="vm"
+        type="ui.home.FooSummaryVm"
+        />
+
+  </data>
+
+  <android.support.constraint.ConstraintLayout
+      android:id="@+id/foo_layout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/normal_100"
+      android:layout_marginTop="@dimen/normal_100"
+      android:onClick="@{vm::onClick}"
+      android:paddingEnd="@dimen/normal_50"
+      android:paddingStart="@dimen/normal_50"
+      >
+
+    <TextView
+        android:id="@+id/foo_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/normal_25"
+        android:text="@{vm.foo.name}"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="foo name"
+        style="@style/Title"
+        />
+
+  </android.support.constraint.ConstraintLayout>
+</layout>

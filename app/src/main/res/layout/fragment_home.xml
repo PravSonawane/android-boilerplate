@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="ui.bindings.RecyclerViewBindings"/>
+        <variable
+            name="vm"
+            type="ui.home.HomeVm"
+            />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="@dimen/normal_100"
+        android:paddingEnd="@dimen/normal_100"
+        tools:context=".HomeFragment">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/event_foos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:adapter="@{vm.homeAdapter}"
+            tools:listitem="@layout/item_home_foo_summary"
+            app:layoutManager="@{RecyclerViewBindings.verticalLinear(context)}" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
