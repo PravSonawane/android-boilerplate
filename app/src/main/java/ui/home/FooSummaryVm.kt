@@ -4,7 +4,7 @@ import android.app.Application
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.NavController
-import com.merryapps.placehunt.R
+import com.companyname.boilerplate.R
 import model.foo.Foo
 import ui.foo.FooDetailFragment.Companion.ARG_FOO_ID
 

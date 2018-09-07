@@ -4,8 +4,8 @@ import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.merryapps.placehunt.R
-import com.merryapps.placehunt.databinding.ItemHomeFooSummaryBinding
+import com.companyname.boilerplate.R
+import com.companyname.boilerplate.databinding.ItemHomeFooSummaryBinding
 import javax.inject.Inject
 
 /** Adapter for [HomeFragment] content */

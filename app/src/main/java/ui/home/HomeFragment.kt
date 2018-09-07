@@ -3,6 +3,7 @@ package ui.home
 
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -10,9 +11,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.merryapps.placehunt.R
-import com.merryapps.placehunt.databinding.FragmentHomeBinding
+import com.companyname.boilerplate.R
+import com.companyname.boilerplate.databinding.FragmentHomeBinding
 import ui.main.MainActivity
+import ui.service.ExampleService
 import javax.inject.Inject
 
 
@@ -51,5 +53,11 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-
+    override fun onStart() {
+        super.onStart()
+        val intent = Intent(this.activity, ExampleService::class.java).apply {
+            putExtra("url", "hello")
+        }
+        activity?.startService(intent)
+    }
 }

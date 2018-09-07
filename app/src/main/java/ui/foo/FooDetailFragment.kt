@@ -10,8 +10,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.merryapps.placehunt.R
-import com.merryapps.placehunt.databinding.FragmentFooDetailBinding
+import com.companyname.boilerplate.R
+import com.companyname.boilerplate.databinding.FragmentFooDetailBinding
 import ui.main.MainActivity
 import javax.inject.Inject
 

@@ -3,7 +3,7 @@ package ui.main
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.findNavController
-import com.merryapps.placehunt.R
+import com.companyname.boilerplate.R
 import ui.app.BoilerplateApp
 
 class MainActivity : AppCompatActivity() {
