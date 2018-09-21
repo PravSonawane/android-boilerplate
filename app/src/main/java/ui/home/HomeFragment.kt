@@ -46,7 +46,7 @@ class HomeFragment : Fragment() {
         homeComponent.injectIn(this)
 
         //FIXME Find better solution. navController needs to be set every time as it is associated with the fragment instance
-        viewModel.setNavController(findNavController())
+        viewModel.navController = findNavController()
         lifecycle.addObserver(viewModel)
         binding.vm = viewModel
 

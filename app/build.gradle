@@ -113,6 +113,10 @@ dependencies {
   //RxSchedulerRule
   testImplementation 'com.github.Plastix.RxSchedulerRule:rx2:1.0.2'
 
+  //leak canary
+  debugImplementation "com.squareup.leakcanary:leakcanary-android:$leak_canary_version"
+  releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leak_canary_version"
+
 
   implementation fileTree(dir: 'libs', include: ['*.jar'])
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

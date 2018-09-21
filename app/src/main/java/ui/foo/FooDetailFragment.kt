@@ -42,7 +42,7 @@ class FooDetailFragment : Fragment() {
     fooDetailComponent.injectIn(this)
 
     //FIXME Find better solution. navController needs to be set every time as it is associated with the fragment instance
-    viewModel.setNavController(findNavController())
+    viewModel.navController = findNavController()
     lifecycle.addObserver(viewModel)
 
     viewModel.fooId = arguments?.getString(ARG_FOO_ID)

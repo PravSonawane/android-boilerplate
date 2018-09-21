@@ -30,11 +30,7 @@ class FooDetailVm @Inject constructor(
   val state = ObservableField<State>(INIT)
 
   private val compositeDisposable = CompositeDisposable()
-  private lateinit var navController: NavController
-
-  fun setNavController(navController: NavController) {
-    this.navController = navController
-  }
+  var navController: NavController? = null
 
   @OnLifecycleEvent(Lifecycle.Event.ON_START)
   fun onStart() {
@@ -53,6 +49,7 @@ class FooDetailVm @Inject constructor(
   @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
   fun onStop() {
     compositeDisposable.clear()
+    navController = null
   }
 
   private fun onSuccess(data: Foo) {

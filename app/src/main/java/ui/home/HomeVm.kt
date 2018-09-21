@@ -6,12 +6,16 @@ import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
 import android.databinding.ObservableField
+import android.os.Bundle
 import androidx.navigation.NavController
+import com.companyname.boilerplate.R
 import core.Result.GetList.OnError
 import core.Result.GetList.OnSuccess
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import model.foo.Foo
+import ui.foo.FooDetailFragment
 import ui.home.HomeVm.State.ERROR
 import ui.home.HomeVm.State.INIT
 import ui.home.HomeVm.State.SUCCESS
@@ -21,21 +25,17 @@ import javax.inject.Inject
 
 class HomeVm @Inject constructor(
   val app: Application,
-  val homeAdapter: HomeAdapter,
   private val getFoosUc: GetFoosUc
 ) : AndroidViewModel(app), LifecycleObserver {
 
   val state = ObservableField<State>(INIT)
-
   private val compositeDisposable = CompositeDisposable()
-  private lateinit var navController: NavController
-
-  fun setNavController(navController: NavController) {
-    this.navController = navController
-  }
+  var homeAdapter: HomeAdapter? = HomeAdapter()
+  var navController: NavController? = null
 
   @OnLifecycleEvent(Lifecycle.Event.ON_START)
   fun onStart() {
+    homeAdapter = HomeAdapter()
     compositeDisposable += getFoosUc.execute()
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe {
@@ -48,7 +48,9 @@ class HomeVm @Inject constructor(
 
   fun onSuccess(data: List<Foo>) {
     state.set(SUCCESS)
-    addToAdapter(data)
+    val vms = convertToVm(data)
+    subscribeForEvents(vms)
+    addToAdapter(vms)
   }
 
   fun onError(throwable: Throwable) {
@@ -58,12 +60,33 @@ class HomeVm @Inject constructor(
   @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
   fun onStop() {
     compositeDisposable.clear()
+    navController = null
+    homeAdapter = null
   }
 
-  private fun addToAdapter(data: List<Foo>) {
-    homeAdapter.clear()
-    data.forEach { homeAdapter.add(FooSummaryVm(it, app, navController)) }
-    homeAdapter.notifyDataSetChanged()
+  private fun convertToVm(data: List<Foo>): List<FooSummaryVm> {
+    return data.map { FooSummaryVm(it, app) }
+  }
+
+  private fun subscribeForEvents(vms: List<FooSummaryVm>) {
+    compositeDisposable += Observable.merge(vms.map { it.events() })
+            .subscribe {
+              when(it) {
+                is FooSummaryVm.Event.OnShowEventDetail -> navigateToDetail(it.foo)
+              }
+            }
+  }
+
+  private fun navigateToDetail(foo: Foo) {
+    val arguments = Bundle()
+    arguments.putString(FooDetailFragment.ARG_FOO_ID, foo.id)
+    navController?.navigate(R.id.action_home_to_fooDetail, arguments)
+  }
+
+  private fun addToAdapter(vms: List<FooSummaryVm>) {
+    homeAdapter?.clear()
+    homeAdapter?.add(vms)
+    homeAdapter?.notifyDataSetChanged()
   }
 
   enum class State {

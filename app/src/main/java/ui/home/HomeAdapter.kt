@@ -6,10 +6,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.companyname.boilerplate.R
 import com.companyname.boilerplate.databinding.ItemHomeFooSummaryBinding
-import javax.inject.Inject
 
 /** Adapter for [HomeFragment] content */
-class HomeAdapter @Inject constructor(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class HomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val adapterItems = ArrayList<AdapterData>()
 
@@ -44,7 +43,7 @@ class HomeAdapter @Inject constructor(): RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     fun add(data: List<FooSummaryVm>) {
-        val vms = data.map { AdapterData(data, VIEW_TYPE_FOO_SUMMARY) }
+        val vms = data.map { AdapterData(it, VIEW_TYPE_FOO_SUMMARY) }
         adapterItems.addAll(vms)
     }
 
